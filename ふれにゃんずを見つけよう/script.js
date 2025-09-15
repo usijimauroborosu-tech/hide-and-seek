@@ -155,20 +155,20 @@
                 }
             }
 
-            // 空いている穴がない場合は、ランダムに既存のキャラクターを消して新しいキャラクターを出現させる
-            if (availableHoles.length === 0) {
-                const activeHoles = Array.from(gameState.activeCharacters.keys());
-                if (activeHoles.length > 0) {
-                    const randomActiveHole = activeHoles[Math.floor(Math.random() * activeHoles.length)];
-                    hideCharacter(randomActiveHole);
-                    availableHoles.push(randomActiveHole);
-                }
-            }
+       // 穴が少ない場合は強制的に上書き（高速モード）
+       if (availableHoles.length <= 2) {
+           const activeHoles = Array.from(gameState.activeCharacters.keys());
+           if (activeHoles.length > 0) {
+               const randomActiveHole = activeHoles[Math.floor(Math.random() * activeHoles.length)];
+               hideCharacter(randomActiveHole);
+               availableHoles.push(randomActiveHole);
+           }
+       }
 
-            if (availableHoles.length === 0) return;
+       if (availableHoles.length === 0) return;
 
-            const holeIndex = availableHoles[Math.floor(Math.random() * availableHoles.length)];
-            const characterElement = document.getElementById(`char${holeIndex}`);
+       const holeIndex = availableHoles[Math.floor(Math.random() * availableHoles.length)];
+       const characterElement = document.getElementById(`char${holeIndex}`);
 
             // キャラクターの種類を決定
             let characterType;
@@ -212,8 +212,8 @@
             characterElement.classList.add('show');
             gameState.activeCharacters.set(holeIndex, characterType);
 
-            // 表示時間をランダムに設定（0.5秒～2.0秒）
-            const showTime = 500 + Math.random() * 300;
+            // 表示時間をランダムに設定（0.5秒～1.2秒）
+            const showTime = 500 + Math.random() * 700;
             setTimeout(() => {
                 if (gameState.activeCharacters.has(holeIndex)) {
                     hideCharacter(holeIndex);
