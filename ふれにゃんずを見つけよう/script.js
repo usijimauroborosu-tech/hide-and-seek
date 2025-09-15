@@ -111,9 +111,9 @@
             // タイマー開始（制限時間カウントダウン）
             gameState.gameInterval = setInterval(updateTimer, 100);
             
-            // キャラクター出現開始（0.8秒間隔で安定出現）
+            // キャラクター出現開始（0.5秒間隔で安定出現）
             spawnCharacter();
-            gameState.spawnInterval = setInterval(spawnCharacter, 800);
+            gameState.spawnInterval = setInterval(spawnCharacter, 500);
 
             setupBackground();
         }
@@ -181,14 +181,14 @@
 
             // 残りキャラクターがある場合の出現確率を調整
             if (remainingCharacters.length > 0) {
-                if (remainingCharacters.length <= 3) {
-                    // 残り2～3匹の時は70%の確率で必要キャラクター
+                if (remainingCharacters.length <= 2) {
+                    // 残り1～2匹の時は60%の確率で必要キャラクター
                     characterType = Math.random() < 0.6 
                         ? remainingCharacters[Math.floor(Math.random() * remainingCharacters.length)]
                         : -1;
                 } else {
-                    // 通常時は50%の確率で必要キャラクター
-                    characterType = Math.random() < 0.5
+                    // 通常時は45%の確率で必要キャラクター
+                    characterType = Math.random() < 0.45
                         ? remainingCharacters[Math.floor(Math.random() * remainingCharacters.length)]
                         : -1;
                 }
@@ -212,8 +212,8 @@
             characterElement.classList.add('show');
             gameState.activeCharacters.set(holeIndex, characterType);
 
-            // 表示時間をランダムに設定（1.2秒～2.0秒）
-            const showTime = 1200 + Math.random() * 800;
+            // 表示時間をランダムに設定（0.5秒～2.0秒）
+            const showTime = 500 + Math.random() * 300;
             setTimeout(() => {
                 if (gameState.activeCharacters.has(holeIndex)) {
                     hideCharacter(holeIndex);
@@ -281,14 +281,14 @@
 
                 // レベル判定
                 const levelElement = document.getElementById('levelResult');
-                if (clearTime <= 11) {
+                if (clearTime <= 15) {
                     levelElement.textContent = '上級者';
                     levelElement.className = 'level expert';
                 } else if (clearTime <= 20) {
                     levelElement.textContent = '中級者';
                     levelElement.className = 'level intermediate';
                 } else {
-                    levelElement.textContent = '初心者';
+                    levelElement.textContent = '初級者';
                     levelElement.className = 'level beginner';
                 }
             } else {
