@@ -21,35 +21,37 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* center から flex-start に変更 */
             touch-action: manipulation;
+            padding: 10px 0; /* 上下にパディングを追加 */
         }
 
         .game-container {
             width: 100%;
             max-width: 450px;
-            padding: 15px;
+            padding: 15px; /* パディングを少し減らす */
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-top: 20px; /* 上部マージンを追加 */
         }
 
         .header {
-            text-align: center;
-            margin-bottom: 20px;
+            text-align: left;
+            margin-bottom: 15px; /* マージンを少し減らす */
         }
 
         .title {
-            font-size: 24px;
+            font-size: 26px; /* フォントサイズを少し小さく */
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 8px; /* マージンを減らす */
             font-weight: bold;
         }
 
         .stats {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* マージンを減らす */
             font-size: 18px;
             font-weight: bold;
         }
@@ -79,17 +81,17 @@
         .game-board {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 12px; /* ギャップを少し小さく */
+            margin-bottom: 15px; /* マージンを減らす */
         }
 
         .hole {
-            width: 100px;
-            height: 100px;
+            width: 90px; /* サイズを少し小さく */
+            height: 90px;
             background: #F5F5F5;
             border-radius: 50%;
             position: relative;
-            border: 5px solid #4CAF50;
+            border: 4px solid #4CAF50; /* ボーダーを細く */
             cursor: pointer;
             transition: transform 0.1s;
         }
@@ -99,8 +101,8 @@
         }
 
         .character {
-            width: 80px;
-            height: 80px;
+            width: 70px; /* サイズを少し小さく */
+            height: 70px;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -122,8 +124,8 @@
         }
 
         .start-screen, .result-screen {
-            text-align: center;
-            padding: 20px;
+            text-align: center;  /* この設定により子要素が中央揃えになる */
+            padding: 15px; /* パディングを減らす */
         }
 
         .start-button, .restart-button {
@@ -171,15 +173,16 @@
         }
 
         .instructions {
-            font-size: 16px;
+            font-size: 15px; /* フォントサイズを少し小さく */
+            text-align: left;    /* この設定で説明文のみ左揃えに上書き */
             color: #666;
-            margin: 20px 0;
-            line-height: 1.5;
+            margin: 15px 0; /* マージンを減らす */
+            line-height: 1.4; /* 行間を狭く */
         }
 
         .character-preview {
-            margin: 20px 0;
-            padding: 15px;
+            margin: 15px 0; /* マージンを減らす */
+            padding: 12px; /* パディングを減らす */
             background: #4CAF50;
             border-radius: 10px;
             border: 2px solid #4CAF50;
@@ -187,20 +190,20 @@
 
         .character-preview h3 {
             color: #333;
-            margin-bottom: 15px;
-            font-size: 18px;
+            margin-bottom: 12px; /* マージンを減らす */
+            font-size: 17px; /* フォントサイズを少し小さく*/
         }
 
         .preview-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
+            gap: 8px; /* ギャップを小さく */
         }
 
         .preview-character {
-            width: 50px;
-            height: 50px;
+            width: 45px; /* サイズを小さく */
+            height: 45px;
             border-radius: 50%;
             background-size: cover;
             background-position: center;
@@ -213,8 +216,8 @@
         }
 
         .bad-character-warning {
-            margin-top: 15px;
-            padding: 10px;
+            margin-top: 12px; /* マージンを減らす */
+            padding: 8px; /* パディングを減らす */
             background: #FF007F;
             border: 2px solid #FF007F;
             border-radius: 8px;
@@ -224,11 +227,12 @@
             gap: 10px;
             color: white;
             font-weight: bold;
+　　　　　　font-size: 14px; /* フォントサイズを小さく */
         }
 
         .bad-preview {
-            width: 40px;
-            height: 40px;
+            width: 35px; /* サイズを小さく */
+            height: 35px;
             border-radius: 50%;
             background-size: cover;
             background-position: center;
@@ -241,38 +245,78 @@
             background-color: #2C3E50;
         }
 
-        @media (max-width: 480px) {
-            .game-container {
-                margin: 10px;
-                padding: 15px;
-                max-width: 400px;
-            }
+        /* スマホ対応をより積極的に */
+@media (max-width: 480px) {
+    body {
+        padding: 5px 0;
+    }
+    
+    .game-container {
+        margin: 10px;
+        padding: 12px;
+        max-width: 380px;
+        margin-top: 10px; /* 上部マージンを小さく */
+    }
 
-            .hole {
-                width: 80px;
-                height: 80px;
-            }
+    .hole {
+        width: 75px;
+        height: 75px;
+    }
 
-            .character {
-                width: 65px;
-                height: 65px;
-            }
+    .character {
+        width: 60px;
+        height: 60px;
+    }
 
-            .title {
-                font-size: 24px;
-            }
+    .title {
+        font-size: 22px;
+    }
 
-            .stats {
-                font-size: 16px;
-            }
+    .stats {
+        font-size: 16px;
+    }
 
-            .preview-character {
-                width: 40px;
-                height: 40px;
-                font-size: 20px;
-            }
-        }
-    </style>
+    .preview-character {
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+    }
+    
+    .instructions {
+        font-size: 14px;
+        margin: 10px 0;
+    }
+    
+    .character-preview {
+        margin: 10px 0;
+        padding: 10px;
+    }
+}
+
+/* 縦長画面での追加調整 */
+@media (max-height: 700px) {
+    .game-container {
+        margin-top: 10px;
+        padding: 10px;
+    }
+    
+    .title {
+        font-size: 24px;
+        margin-bottom: 6px;
+    }
+    
+    .instructions {
+        font-size: 14px;
+        margin: 10px 0;
+        line-height: 1.3;
+    }
+    
+    .character-preview {
+        margin: 10px 0;
+        padding: 8px;
+    }
+}
+ </style>
 </head>
 <body>
     <div class="game-container">
@@ -284,7 +328,7 @@
             </div>
             
             <div class="character-preview">
-                <h3>見つけるキャラクター<br>（7種類）</h3>
+                <h3>見つけるキャラクター（7種類）</h3>
                 <div class="preview-grid" id="characterPreview"></div>
                 
                 <div class="bad-character-warning">
@@ -350,6 +394,4 @@
 
 <script src="script.js"></script>
 </body>
-
 </html>
-
