@@ -282,13 +282,13 @@
                 // レベル判定
                 const levelElement = document.getElementById('levelResult');
                 if (clearTime <= 15) {
-                    levelElement.textContent = '上級者';
+                    levelElement.textContent = '三つ星⭐⭐⭐';
                     levelElement.className = 'level expert';
-                } else if (clearTime <= 20) {
-                    levelElement.textContent = '中級者';
+                } else if (clearTime <= 25) {
+                    levelElement.textContent = '二つ星⭐⭐';
                     levelElement.className = 'level intermediate';
                 } else {
-                    levelElement.textContent = '初級者';
+                    levelElement.textContent = '一つ星⭐';
                     levelElement.className = 'level beginner';
                 }
             } else {
