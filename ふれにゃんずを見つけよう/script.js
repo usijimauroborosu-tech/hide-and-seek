@@ -281,10 +281,10 @@
 
                 // レベル判定
                 const levelElement = document.getElementById('levelResult');
-                if (clearTime <= 15) {
+                if (clearTime <= 18) {
                     levelElement.textContent = '三つ星⭐⭐⭐';
                     levelElement.className = 'level expert';
-                } else if (clearTime <= 25) {
+                } else if (clearTime <= 30) {
                     levelElement.textContent = '二つ星⭐⭐';
                     levelElement.className = 'level intermediate';
                 } else {
