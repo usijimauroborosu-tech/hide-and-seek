@@ -296,14 +296,14 @@
         margin: 10px 0;
         padding: 10px;
     }
-        /* ゲーム画面の上部余白 */
-    #gameScreen .game-container {
-        margin-top: 100px !important;
+    /* ゲーム画面時の白い枠全体の位置 */
+    body:has(#gameScreen:not([style*="display: none"])) .game-container {
+        margin-top: 100px;
     }
     
-    /* 結果画面の上部余白 */
-    #resultScreen {
-        margin-top: 250px !important;
+    /* 結果画面時の白い枠全体の位置 */
+    body:has(#resultScreen:not([style*="display: none"])) .game-container {
+        margin-top: 200px;
     }
 }
 
@@ -423,4 +423,5 @@
 </body>
 
 </html>
+
 
