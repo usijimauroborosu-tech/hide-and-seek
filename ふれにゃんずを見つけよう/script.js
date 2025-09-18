@@ -1,4 +1,4 @@
-        // ゲームの状態管理
+// ゲームの状態管理
         let gameState = {
             isPlaying: false,
             startTime: 0,
@@ -143,9 +143,17 @@
             }
         }
 
-        // キャラクター出現
+        // キャラクター出現（修正版）
         function spawnCharacter() {
             if (!gameState.isPlaying) return;
+
+            // 残りキャラクター数を先に計算
+            const remainingCharacters = [];
+            for (let i = 0; i < 7; i++) {
+                if (!gameState.caughtCharacters.has(i)) {
+                    remainingCharacters.push(i);
+                }
+            }
 
             // 空いている穴を探す
             const availableHoles = [];
@@ -155,45 +163,60 @@
                 }
             }
 
-       // 穴が少ない場合は強制的に上書き（高速モード）
-       if (availableHoles.length <= 2) {
-           const activeHoles = Array.from(gameState.activeCharacters.keys());
-           if (activeHoles.length > 0) {
-               const randomActiveHole = activeHoles[Math.floor(Math.random() * activeHoles.length)];
-               hideCharacter(randomActiveHole);
-               availableHoles.push(randomActiveHole);
-           }
-       }
+            // 残りキャラクター数に応じて上書き戦略を変更
+            let shouldForceSpawn = false;
+            
+            if (remainingCharacters.length === 1) {
+                // 最後の1匹の場合：空き穴が7個以下で上書き（ほぼ常に出現）
+                shouldForceSpawn = availableHoles.length <= 7;
+            } else if (remainingCharacters.length <= 2) {
+                // 残り2匹の場合：空き穴が5個以下で上書き
+                shouldForceSpawn = availableHoles.length <= 5;
+            } else {
+                // 通常時：空き穴が2個以下で上書き（元のロジック）
+                shouldForceSpawn = availableHoles.length <= 2;
+            }
 
-       if (availableHoles.length === 0) return;
-
-       const holeIndex = availableHoles[Math.floor(Math.random() * availableHoles.length)];
-       const characterElement = document.getElementById(`char${holeIndex}`);
-
-            // キャラクターの種類を決定
-            let characterType;
-            const remainingCharacters = [];
-            for (let i = 0; i < 7; i++) {
-                if (!gameState.caughtCharacters.has(i)) {
-                    remainingCharacters.push(i);
+            if (shouldForceSpawn && availableHoles.length < 9) {
+                const activeHoles = Array.from(gameState.activeCharacters.keys());
+                if (activeHoles.length > 0) {
+                    const randomActiveHole = activeHoles[Math.floor(Math.random() * activeHoles.length)];
+                    hideCharacter(randomActiveHole);
+                    availableHoles.push(randomActiveHole);
                 }
             }
 
-            // 残りキャラクターがある場合の出現確率を調整
-            if (remainingCharacters.length > 0) {
-                if (remainingCharacters.length <= 2) {
-                    // 残り1～2匹の時は60%の確率で必要キャラクター
-                    characterType = Math.random() < 0.6 
-                        ? remainingCharacters[Math.floor(Math.random() * remainingCharacters.length)]
-                        : -1;
+            // どうしても空き穴がない場合は強制的に作る
+            if (availableHoles.length === 0) {
+                const activeHoles = Array.from(gameState.activeCharacters.keys());
+                if (activeHoles.length > 0) {
+                    const randomActiveHole = activeHoles[Math.floor(Math.random() * activeHoles.length)];
+                    hideCharacter(randomActiveHole);
+                    availableHoles.push(randomActiveHole);
                 } else {
-                    // 通常時は45%の確率で必要キャラクター
-                    characterType = Math.random() < 0.45
-                        ? remainingCharacters[Math.floor(Math.random() * remainingCharacters.length)]
-                        : -1;
+                    return;
                 }
+            }
+
+            const holeIndex = availableHoles[Math.floor(Math.random() * availableHoles.length)];
+            const characterElement = document.getElementById(`char${holeIndex}`);
+
+            // 最後の1匹の場合は出現確率を上げる
+            let characterType;
+            if (remainingCharacters.length > 0) {
+                let spawnProbability;
+                if (remainingCharacters.length === 1) {
+                    spawnProbability = 0.8; // 最後の1匹は80%の確率
+                } else if (remainingCharacters.length <= 2) {
+                    spawnProbability = 0.6; // 残り2匹は60%の確率
+                } else {
+                    spawnProbability = 0.45; // 通常時は45%の確率
+                }
+                
+                characterType = Math.random() < spawnProbability
+                    ? remainingCharacters[Math.floor(Math.random() * remainingCharacters.length)]
+                    : -1;
             } else {
-                // 全て捕まえた場合はハズレキャラクターのみ
                 characterType = -1;
             }
 
@@ -212,8 +235,14 @@
             characterElement.classList.add('show');
             gameState.activeCharacters.set(holeIndex, characterType);
 
-            // 表示時間をランダムに設定（0.5秒～1.2秒）
-            const showTime = 500 + Math.random() * 700;
+            // 最後の1匹の場合は表示時間を短くして回転を速める
+            let showTime;
+            if (remainingCharacters.length === 1) {
+                showTime = 400 + Math.random() * 400; // 0.4～0.8秒（短縮）
+            } else {
+                showTime = 500 + Math.random() * 700; // 0.5～1.2秒（元のまま）
+            }
+            
             setTimeout(() => {
                 if (gameState.activeCharacters.has(holeIndex)) {
                     hideCharacter(holeIndex);
