@@ -111,9 +111,9 @@
             // タイマー開始（制限時間カウントダウン）
             gameState.gameInterval = setInterval(updateTimer, 100);
             
-            // キャラクター出現開始（0.5秒間隔で安定出現）
+            // キャラクター出現開始（0.7秒間隔で安定出現）
             spawnCharacter();
-            gameState.spawnInterval = setInterval(spawnCharacter, 500);
+            gameState.spawnInterval = setInterval(spawnCharacter, 700);
 
             setupBackground();
         }
@@ -238,9 +238,9 @@
             // 最後の1匹の場合は表示時間を短くして回転を速める
             let showTime;
             if (remainingCharacters.length === 1) {
-                showTime = 400 + Math.random() * 400; // 0.4～0.8秒（短縮）
+                showTime = 600 + Math.random() * 600; // 0.6～1.2秒（短縮）
             } else {
-                showTime = 500 + Math.random() * 700; // 0.5～1.2秒（元のまま）
+                showTime = 800 + Math.random() * 800; // 0.8～1.6秒（元のまま）
             }
             
             setTimeout(() => {
@@ -358,4 +358,5 @@
         window.onload = function() {
             setupBackground();
             setupCharacterPreview();
+
         };
