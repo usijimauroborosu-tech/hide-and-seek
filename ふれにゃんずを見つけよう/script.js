@@ -310,7 +310,7 @@
 
                 // レベル判定
                 const levelElement = document.getElementById('levelResult');
-                if (clearTime <= 20) {
+                if (clearTime <= 16) {
                     levelElement.textContent = '三つ星⭐⭐⭐';
                     levelElement.className = 'level expert';
                 } else if (clearTime <= 25) {
@@ -360,5 +360,6 @@
             setupCharacterPreview();
 
         };
+
 
 
