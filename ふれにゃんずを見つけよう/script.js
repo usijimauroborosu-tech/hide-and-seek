@@ -202,23 +202,23 @@
             const characterElement = document.getElementById(`char${holeIndex}`);
 
             // 最後の1匹の場合は出現確率を上げる
-let characterType;
-if (remainingCharacters.length > 0) {
-    let spawnProbability;
-    if (remainingCharacters.length === 1) {
-        spawnProbability = 0.8; // 最後の1匹は80%の確率
-    } else if (remainingCharacters.length <= 2) {
-        spawnProbability = 0.6; // 残り2匹は60%の確率
-    } else {
-        spawnProbability = 0.45; // 通常時は45%の確率
-    }
+　　　　　　　　let characterType;
+　　　　　　　　if (remainingCharacters.length > 0) {
+              let spawnProbability;
+               if (remainingCharacters.length === 1) {
+                 spawnProbability = 0.8; // 最後の1匹は80%の確率
+               } else if (remainingCharacters.length <= 2) {
+                   spawnProbability = 0.6; // 残り2匹は60%の確率
+                   } else {
+                       spawnProbability = 0.45; // 通常時は45%の確率
+                      }
     
-    characterType = Math.random() < spawnProbability
-        ? remainingCharacters[Math.floor(Math.random() * remainingCharacters.length)]
-        : -1;
-} else {
-    characterType = -1;
-}
+                       characterType = Math.random() < spawnProbability
+                         ? remainingCharacters[Math.floor(Math.random() * remainingCharacters.length)]
+                         : -1;
+　　　　　　　　　　　　　　　} else {
+                         characterType = -1;
+　　　　　　　　　　　　　　　}
 
             // キャラクター画像設定
             characterElement.innerHTML = '';
@@ -310,10 +310,10 @@ if (remainingCharacters.length > 0) {
 
                 // レベル判定
                 const levelElement = document.getElementById('levelResult');
-                if (clearTime <= 12) {
+                if (clearTime <= 20) {
                     levelElement.textContent = '三つ星⭐⭐⭐';
                     levelElement.className = 'level expert';
-                } else if (clearTime <= 20) {
+                } else if (clearTime <= 25) {
                     levelElement.textContent = '二つ星⭐⭐';
                     levelElement.className = 'level intermediate';
                 } else {
@@ -360,4 +360,5 @@ if (remainingCharacters.length > 0) {
             setupCharacterPreview();
 
         };
+
 
