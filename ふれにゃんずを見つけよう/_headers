@@ -1,10 +1,10 @@
-# Netlify _headers ファイル
+# Netlify _headers ファイル（Google Analytics対応版）
 # このファイルをプロジェクトのルートディレクトリに配置してください
 
 # 全体的なセキュリティヘッダー
 /*
-  # Content Security Policy - スクリプトとスタイルの実行を制御
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; media-src 'self'; frame-src 'none'; base-uri 'self'; form-action 'self'
+  # Content Security Policy - Google Analytics & GA4に対応
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://googletagmanager.com https://www.google-analytics.com https://ssl.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://ssl.google-analytics.com https://www.googletagmanager.com https://googletagmanager.com; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://googletagmanager.com https://region1.google-analytics.com https://region1.analytics.google.com; object-src 'none'; media-src 'self'; frame-src 'none'; base-uri 'self'; form-action 'self'
   
   # XSSプロテクション
   X-Content-Type-Options: nosniff
@@ -14,7 +14,7 @@
   # リファラーポリシー
   Referrer-Policy: strict-origin-when-cross-origin
   
-  # パーミッションポリシー - デバイスアクセスを制限
+  # パーミッションポリシー - 必要に応じて調整
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), speaker=(), notifications=(), push=(), vibrate=()
   
   # HTTPSへの強制リダイレクト (HSTS)
